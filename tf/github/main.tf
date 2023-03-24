@@ -13,7 +13,7 @@ terraform {
 }
 
 provider "github" {
-  owner = "teddyversionsite"
+  owner = var.org
 }
 
 resource "github_repository" "infra" {
@@ -22,20 +22,8 @@ resource "github_repository" "infra" {
   visibility = "public"
 
   template {
-    owner                = "teddyversionsite"
+    owner                = var.org
     repository           = "infra"
-    include_all_branches = true
-  }
-}
-
-resource "github_repository" "teddyversion-frontend" {
-  name = "teddyversion-frontend"
-
-  visibility = "public"
-
-  template {
-    owner                = "teddyversionsite"
-    repository           = "teddyversion-frontend"
     include_all_branches = true
   }
 }
@@ -52,6 +40,18 @@ resource "github_branch_protection" "infra" {
     pull_request_bypassers = [
       "/tylerrasor"
     ]
+  }
+}
+
+resource "github_repository" "teddyversion-frontend" {
+  name = "teddyversion-frontend"
+
+  visibility = "public"
+
+  template {
+    owner                = var.org
+    repository           = "teddyversion-frontend"
+    include_all_branches = true
   }
 }
 
