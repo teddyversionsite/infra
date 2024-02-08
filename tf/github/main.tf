@@ -38,6 +38,7 @@ resource "github_branch_protection" "infra" {
     dismiss_stale_reviews      = true
     require_code_owner_reviews = true
     pull_request_bypassers = [
+      var.github_org_id,
       "/tylerrasor"
     ]
   }
@@ -65,6 +66,7 @@ resource "github_branch_protection" "teddyversion-frontend" {
     dismiss_stale_reviews      = true
     require_code_owner_reviews = true
     pull_request_bypassers = [
+      var.github_org_id,
       "/tylerrasor"
     ]
   }
@@ -92,6 +94,7 @@ resource "github_branch_protection" "user-service" {
     dismiss_stale_reviews      = true
     require_code_owner_reviews = true
     pull_request_bypassers = [
+      var.github_org_id,
       "/tylerrasor"
     ]
   }
