@@ -3,8 +3,8 @@ variable "org" {
   default = "teddyversionsite"
 }
 
-variable "github_org_id" {
+variable "tylerrasor" {
   type = string
-  # "Organization and repository administrators" default that github adds
+  # oops, this is actually me
   default = "MDQ6VXNlcjQxOTgyNTE="
 }

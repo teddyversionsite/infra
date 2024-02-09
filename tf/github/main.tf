@@ -37,10 +37,7 @@ resource "github_branch_protection" "infra" {
   required_pull_request_reviews {
     dismiss_stale_reviews      = true
     require_code_owner_reviews = true
-    pull_request_bypassers = [
-      var.github_org_id,
-      "/tylerrasor"
-    ]
+    pull_request_bypassers     = [var.tylerrasor]
   }
 }
 
@@ -65,10 +62,7 @@ resource "github_branch_protection" "teddyversion-frontend" {
   required_pull_request_reviews {
     dismiss_stale_reviews      = true
     require_code_owner_reviews = true
-    pull_request_bypassers = [
-      var.github_org_id,
-      "/tylerrasor"
-    ]
+    pull_request_bypassers     = [var.tylerrasor]
   }
 }
 
@@ -93,9 +87,38 @@ resource "github_branch_protection" "user-service" {
   required_pull_request_reviews {
     dismiss_stale_reviews      = true
     require_code_owner_reviews = true
-    pull_request_bypassers = [
-      var.github_org_id,
-      "/tylerrasor"
+    pull_request_bypassers     = [var.tylerrasor]
+  }
+}
+
+resource "github_repository" "music-service" {
+  name = "music-service"
+
+  visibility = "public"
+
+  template {
+    owner                = var.org
+    repository           = "music-service"
+    include_all_branches = true
+  }
+}
+
+resource "github_branch_protection" "music-service" {
+  repository_id = github_repository.music-service.name
+
+  pattern        = "main"
+  enforce_admins = true
+
+  required_pull_request_reviews {
+    dismiss_stale_reviews      = true
+    require_code_owner_reviews = true
+    pull_request_bypassers     = [var.tylerrasor]
+  }
+
+  required_status_checks {
+    contexts = [
+      "dependency-submission",
+      "test"
     ]
   }
 }
