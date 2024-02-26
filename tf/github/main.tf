@@ -64,6 +64,12 @@ resource "github_branch_protection" "teddyversion-frontend" {
     require_code_owner_reviews = true
     pull_request_bypassers     = [var.tylerrasor]
   }
+
+  required_status_checks {
+    contexts = [
+      "test"
+    ]
+  }
 }
 
 resource "github_repository" "user-service" {
